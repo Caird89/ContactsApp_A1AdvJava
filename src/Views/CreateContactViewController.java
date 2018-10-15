@@ -4,8 +4,11 @@ import Models.Contact;
 import javafx.embed.swing.SwingFXUtils;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
@@ -43,7 +46,7 @@ public class CreateContactViewController implements Initializable {
     /**
      *
      */
-    public void createContactSaveButton(ActionEvent event) {
+    public void createContactSaveButton(ActionEvent event) throws IOException {
         try {
             Contact contact = new Contact(firstNameTextField.getText(), lastNameTextField.getText(), birthdayDatePicker.getValue(),
                     addressTextField.getText(), phoneTextField.getText());
@@ -52,12 +55,18 @@ public class CreateContactViewController implements Initializable {
 
             contact.addToDB();
 
+            Parent createContact = FXMLLoader.load(getClass().getResource("AllContacts.fxml"));
+            Scene createContactScene = new Scene(createContact);
+            Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            window.setScene(createContactScene);
+            window.show();
+
 
         } catch (Exception e) {
             errorMessageLabel.setText(e.getMessage());
         }
-
     }
+
 
     /**
      *
