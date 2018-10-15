@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.Font?>
+<AnchorPane xmlns:fx="http://javafx.com/fxml/1" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
+            prefHeight="350.0" prefWidth="500.0" xmlns="http://javafx.com/javafx/8"
+            fx:controller="Views.AllContactsViewController">
+    <children>
+        <VBox prefHeight="400.0" prefWidth="600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
+              AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+            <children>
+                <HBox prefHeight="29.0" prefWidth="600.0">
+                    <children>
+                        <TitledPane animated="false" prefHeight="400.0" prefWidth="600.0" text="All Contacts">
+                            <font>
+                                <Font name="System Bold" size="13.0"/>
+                            </font>
+                        </TitledPane>
+                    </children>
+                </HBox>
+                <HBox alignment="CENTER" prefHeight="73.0" prefWidth="600.0">
+                    <children>
+                        <Label fx:id="allContactsLabel" text="Contacts">
+                            <font>
+                                <Font name="Arial" size="30.0"/>
+                            </font>
+                        </Label>
+                    </children>
+                </HBox>
+                <HBox alignment="CENTER">
+                    <children>
+                        <TableView fx:id="allContactsTableView" layoutX="111.0" layoutY="100.0" prefHeight="200.0"
+                                   prefWidth="375.0">
+                            <columns>
+                                <TableColumn fx:id="IDColumn" prefWidth="47.0" text="ID"/>
+                                <TableColumn fx:id="firstNameColumn" prefWidth="103.0" text="First Name"/>
+                                <TableColumn fx:id="lastNameColumn" prefWidth="75.0" text="Last Name"/>
+                                <TableColumn fx:id="birthdayColumn" prefWidth="75.0" text="Birthday"/>
+                                <TableColumn fx:id="addressColumn" prefWidth="75.0" text="Address"/>
+                                <TableColumn fx:id="phoneColumn" prefWidth="75.0" text="Phone"/>
+                            </columns>
+                        </TableView>
+                    </children>
+                </HBox>
+                <HBox prefHeight="100.0" prefWidth="570.0">
+                    <children>
+                        <GridPane alignment="CENTER" prefHeight="100.0" prefWidth="598.0">
+                            <columnConstraints>
+                                <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="311.0"
+                                                   minWidth="10.0" prefWidth="141.0"/>
+                                <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="229.0"
+                                                   minWidth="10.0" prefWidth="91.0"/>
+                                <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="278.0"
+                                                   minWidth="10.0" prefWidth="160.0"/>
+                                <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="278.0"
+                                                   minWidth="10.0" prefWidth="200.0"/>
+                            </columnConstraints>
+                            <rowConstraints>
+                                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
+                            </rowConstraints>
+                            <children>
+                                <Button fx:id="allContactsSearchButton" contentDisplay="CENTER" mnemonicParsing="false"
+                                        text="Search" GridPane.columnIndex="1"/>
+                                <Button fx:id="allContactsEditContactButton" mnemonicParsing="false" prefHeight="27.0"
+                                        prefWidth="104.0" text="Edit Contact" GridPane.columnIndex="2"/>
+                                <Button fx:id="allContactsCreateNewButton" mnemonicParsing="false"
+                                        onAction="#allContactsCreateNewButtonPushed" prefHeight="27.0" prefWidth="150.0"
+                                        text="Create new contact" GridPane.columnIndex="3"/>
+                                <TextField fx:id="allContactsSearchTextField" prefHeight="27.0" prefWidth="123.0"
+                                           promptText="Search" text="Search"/>
+                            </children>
+                        </GridPane>
+                    </children>
+                    <padding>
+                        <Insets bottom="6.0" left="6.0" right="6.0" top="6.0"/>
+                    </padding>
+                </HBox>
+            </children>
+        </VBox>
+    </children>
+</AnchorPane>
