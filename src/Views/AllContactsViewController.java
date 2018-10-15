@@ -26,13 +26,13 @@ public class AllContactsViewController implements Initializable {
 
     // configuring window and table
     @FXML private Label allContactsLabel;
-    @FXML private TableView<Models.Contact> allContactsTableView;
-    @FXML private TableColumn<Models.Contact, Integer> idColumn;
-    @FXML private TableColumn<Models.Contact, String> firstNameColumn;
-    @FXML private TableColumn<Models.Contact, String> lastNameColumn;
-    @FXML private TableColumn<Models.Contact, LocalDate> birthdayColumn;
-    @FXML private TableColumn<Models.Contact, String> addressColumn;
-    @FXML private TableColumn<Models.Contact, String> phoneColumn;
+    @FXML private TableView<Contact> allContactsTableView;
+    @FXML private TableColumn<Contact, Integer> idColumn;
+    @FXML private TableColumn<Contact, String> firstNameColumn;
+    @FXML private TableColumn<Contact, String> lastNameColumn;
+    @FXML private TableColumn<Contact, LocalDate> birthdayColumn;
+    @FXML private TableColumn<Contact, String> addressColumn;
+    @FXML private TableColumn<Contact, String> phoneColumn;
     @FXML private TextField allContactsSearchTextField;
     @FXML private Button allContactsEditContactButton;
     @FXML private Button allContactsSearchButton;
@@ -41,31 +41,27 @@ public class AllContactsViewController implements Initializable {
 
     /**
      * Initializes the controller class.
+     * (this code is run first)
      */
     @Override
     public void initialize(URL url, ResourceBundle resources) {
         //  set up the columns in the table
-        idColumn.setCellValueFactory(new PropertyValueFactory<Contact, Integer>("contact_id"));
+        idColumn.setCellValueFactory(new PropertyValueFactory<Contact, Integer>("contactID"));
         firstNameColumn.setCellValueFactory(new PropertyValueFactory<Contact, String>("firstName"));
         lastNameColumn.setCellValueFactory(new PropertyValueFactory<Contact, String>("lastName"));
         birthdayColumn.setCellValueFactory(new PropertyValueFactory<Contact, LocalDate>("birthday"));
         addressColumn.setCellValueFactory(new PropertyValueFactory<Contact, String>("address"));
-        phoneColumn.setCellValueFactory(new PropertyValueFactory<Contact, String>("phone_number"));
+        phoneColumn.setCellValueFactory(new PropertyValueFactory<Contact, String>("phone"));
 
-
-//        //Update the table to allow for the first and last name fields
-//        //to be editable
-//        tableView.setEditable(true);
-//        idColumn.setCellFactory(TextFieldTableCell.forTableColumn());
-//        firstNameColumn.setCellFactory(TextFieldTableCell.forTableColumn());
-//        lastNameColumn.setCellFactory(TextFieldTableCell.forTableColumn());
-//        addressColumn.setCellFactory(TextFieldTableCell.forTableColumn());
-//        phoneColumn.setCellFactory(TextFieldTableCell.forTableColumn());
-//
-//        //This will allow the table to select multiple rows at once
-//        tableView.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
-
+        try{
+            passContacts();
+        }
+        catch (SQLException e)
+        {
+            System.err.println(e.getMessage());
+        }
     }
+
 
     /**
      * This method will change scenes to CreateContactViewController when the Create Contact
@@ -79,6 +75,10 @@ public class AllContactsViewController implements Initializable {
         window.show();
     }
 
+    /**
+     * passes contacts to table view to be displayed
+     * @throws SQLException
+     */
     public void passContacts() throws SQLException {
         ObservableList<Contact> contacts = FXCollections.observableArrayList();
 
@@ -98,14 +98,14 @@ public class AllContactsViewController implements Initializable {
                         resultSet.getString("last_name"),
                         resultSet.getDate("birthday").toLocalDate(),
                         resultSet.getString("address"),
-                        resultSet.getString("phone_number"),
-                        newContact.setImageFile(new File(resultSet.getString("image")));
+                        resultSet.getString("phone_number"));
                         newContact.setContactID(resultSet.getInt("contact_id"));
+                        newContact.setImageFile(new File(resultSet.getString("image")));
 
                 contacts.add(newContact);
             }
 
-            allContactTableView.getItems().addAll(contacts);
+            allContactsTableView.getItems().addAll(contacts);
 
         } catch (Exception e) {
             System.err.println(e);

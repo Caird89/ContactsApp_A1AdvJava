@@ -17,6 +17,7 @@ import java.time.Period;
 public class Contact {
     private String firstName, lastName, address, phone;
     private LocalDate birthday;
+    private int contactID;
     private File imageFile;
 
     // This is a Contact constructor(the basic blueprints to building a Contact object)
@@ -104,6 +105,16 @@ public class Contact {
         this.imageFile = imageFile;
     }
 
+    public int getContactID() {
+        return contactID;
+    }
+
+    public void setContactID(int contactID) {
+        if (contactID >= 0)
+            this.contactID = contactID;
+        else
+            throw new IllegalArgumentException("Invalid contactID");
+    }
 
 
     /**
@@ -202,7 +213,7 @@ public class Contact {
         PreparedStatement preparedStatement = null;
 
         try {
-            dbConn = DriverManager.getConnection("jdbc:mysql://localhost:3306/A1Java?useSSL=false",
+            dbConn = DriverManager.getConnection("jdbc:mysql://localhost:3306/A1Java?",
                     "root", "root");
 
             String dbQuery = "INSERT INTO 'Contacts' (first_name, last_name, birthday, address, phone_number, image)"
